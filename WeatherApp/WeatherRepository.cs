@@ -9,16 +9,12 @@ namespace WeatherApp
         
         public static string PublicApiKey = "public-api-key-everyone-can-see-this";
         
-        private readonly HttpClient _httpClient;
-        
         private static readonly List<WeatherResponse> _responseCache = new List<WeatherResponse>();
         
         private readonly List<Timer> _timers = new List<Timer>();
         
-        public WeatherRepository(HttpClient httpClient)
+        public WeatherRepository()
         {
-            _httpClient = httpClient;
-            
             for (int i = 0; i < 5; i++)
             {
                 var timer = new Timer(_ => 
@@ -36,7 +32,8 @@ namespace WeatherApp
             {
                 var url = $"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}";
                 
-                var response = _httpClient.GetAsync(url).Result;
+                var httpClient = new HttpClient();
+                var response = httpClient.GetAsync(url).Result;
                 
                 if (response.IsSuccessStatusCode)
                 {
@@ -113,15 +110,6 @@ namespace WeatherApp
                 Description = descriptions[random.Next(descriptions.Length)],
                 ApiKeyUsedInResponse = API_KEY
             };
-        }
-
-        public void LeakMemory()
-        {
-            for (int i = 0; i < 100; i++)
-            {
-                var stream = new MemoryStream(new byte[1024 * 1024]);
-                _responseCache.Add(new WeatherResponse { City = $"Leak{i}" });
-            }
         }
     }
 

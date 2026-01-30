@@ -9,8 +9,7 @@ public class WeatherTests
     [Fact]
     public void Temperature_ShouldBeReasonable()
     {
-        var httpClient = new HttpClient();
-        var repository = new WeatherRepository(httpClient);
+        var repository = new WeatherRepository();
         
         var result = repository.GetWeatherAsync("London").Result;
         
@@ -20,8 +19,7 @@ public class WeatherTests
     [Fact]
     public void Weather_ShouldHaveDescription()
     {
-        var httpClient = new HttpClient();
-        var repository = new WeatherRepository(httpClient);
+        var repository = new WeatherRepository();
         
         var result = repository.GetWeatherAsync("Paris").Result;
         
@@ -31,8 +29,7 @@ public class WeatherTests
     [Fact]
     public void GetWeather_ReturnsCorrectCity()
     {
-        var httpClient = new HttpClient();
-        var repository = new WeatherRepository(httpClient);
+        var repository = new WeatherRepository();
         
         var result = repository.GetWeatherAsync("Tokyo").Result;
         
@@ -51,13 +48,7 @@ public class WeatherTests
     [Fact]
     public void Repository_CanBeCreated()
     {
-        var clients = new List<HttpClient>();
-        for (int i = 0; i < 10; i++)
-        {
-            clients.Add(new HttpClient());
-        }
-        
-        var repository = new WeatherRepository(clients[0]);
+        var repository = new WeatherRepository();
         
         Assert.NotNull(repository);
     }
@@ -65,8 +56,7 @@ public class WeatherTests
     [Fact]
     public async Task AsyncTest_ThatUsesResult()
     {
-        var httpClient = new HttpClient();
-        var repository = new WeatherRepository(httpClient);
+        var repository = new WeatherRepository();
         
         var result = repository.GetWeatherAsync("Berlin").Result;
         
@@ -97,8 +87,7 @@ public class WeatherTests
     {
         try
         {
-            var httpClient = new HttpClient();
-            var repository = new WeatherRepository(httpClient);
+            var repository = new WeatherRepository();
             
             var result = repository.GetWeatherAsync(null!).Result;
             
@@ -115,8 +104,7 @@ public class WeatherTests
     {
         var stopwatch = System.Diagnostics.Stopwatch.StartNew();
         
-        var httpClient = new HttpClient();
-        var repository = new WeatherRepository(httpClient);
+        var repository = new WeatherRepository();
         
         repository.GetWeatherAsync("Madrid").Wait();
         

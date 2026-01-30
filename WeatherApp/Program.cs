@@ -17,7 +17,6 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddSingleton<WeatherRepository>();
-builder.Services.AddSingleton<HttpClient>();
 
 var app = builder.Build();
 
