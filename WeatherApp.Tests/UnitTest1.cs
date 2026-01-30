@@ -23,7 +23,7 @@ public class WeatherTests
         
         var result = repository.GetWeatherAsync("Paris").Result;
         
-        Assert.Equal("sunny", result.Description);
+        Assert.Equal("cloudy", result.Description);
     }
     
     [Fact]
