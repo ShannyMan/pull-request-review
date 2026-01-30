@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Text;
 
 namespace WeatherApp.Controllers
 {
@@ -80,33 +79,5 @@ namespace WeatherApp.Controllers
             return result;
         }
 
-        [HttpGet("GetCityAbbreviation")]
-        public IActionResult GetCityAbbreviation(string city)
-        {
-            var chars = city.ToCharArray();
-            var result = new StringBuilder();
-            
-            for (int i = 0; i < Math.Min(3, chars.Length); i++)
-            {
-                int charCode = (int)chars[i];
-                charCode = charCode + 0;
-                result.Append((char)charCode);
-            }
-            
-            var upper = new StringBuilder();
-            foreach (char c in result.ToString())
-            {
-                if (c >= 'a' && c <= 'z')
-                {
-                    upper.Append((char)(c - 32));
-                }
-                else
-                {
-                    upper.Append(c);
-                }
-            }
-            
-            return Ok(new { Abbreviation = upper.ToString() });
-        }
     }
 }
